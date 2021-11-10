@@ -31,9 +31,9 @@ function CustomizedProgressBars({value, ...props}) {
 export default function App() {
   const [response, setResponse] = React.useState({data: '0'});
   const [status, setStatus] = React.useState('Initialized')
-  const [terminal, setTerminal] = React.useState([])
+  const [logInfo, setLogInfo] = React.useState([])
   React.useEffect (() => {
-    setTerminal([...terminal, JSON.stringify(response.data)])
+    setLogInfo([...logInfo, JSON.stringify(response.data)])
     if (Number(response.data) === 100) {
       setStatus('Completed')
     }
@@ -42,7 +42,7 @@ export default function App() {
     let ws = new WebSocket("ws://localhost:8000");
     ws.onopen = () => {
       setStatus('Connected')
-      setTerminal([...terminal, 'Connected'])
+      setLogInfo([...logInfo, 'Connected'])
     };
     ws.onmessage = (res) => {
       console.log(res);
@@ -56,8 +56,8 @@ export default function App() {
         <CustomizedProgressBars value={Number(response.data)} style={{ width: '100%' }}/>
         <Button variant="contained" onClick={handleClick} style={{ width: '10%', margin: '10px 10px 0 0' }}>Send</Button>
         <Stack sx={{ width: '100%' }} spacing={0} style={{ marginTop: '1%' }}>
-          {terminal && terminal.map((value, key) => (
-              key !== 0 && <Alert severity="success" key={key}>MessageEvent <span>{"{"}</span>data: {value}<span>{"}"}</span></Alert>
+          {logInfo && logInfo.map((value, key) => (
+              key !== 0 && <Alert severity="success" key={key} style={{ marginTop: 3 }}>MessageEvent <span>{"{"}</span>data: {value}<span>{"}"}</span></Alert>
           )
           )}
         </Stack>
