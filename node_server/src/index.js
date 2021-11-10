@@ -1,8 +1,9 @@
 const WebSocket = require("ws");
 
+// Create a Server instance on port 8000
 const wss = new WebSocket.Server({ port: 8000 });
 
-// Adds a listener function to the listener array for the event name "connection".
+// Add a listener function to the listener array for the event name "connection".
 wss.on("connection", async (ws) => {
   console.log("New client connected");
   // Wait for 0.5s

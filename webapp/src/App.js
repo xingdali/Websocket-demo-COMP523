@@ -39,6 +39,7 @@ export default function App() {
     }
   }, [response])
   const handleClick = () => {
+    // create a new WebSocket object and connect to the server
     let ws = new WebSocket("ws://localhost:8000");
     ws.onopen = () => {
       setStatus('Connected')
